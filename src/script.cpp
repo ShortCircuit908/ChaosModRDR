@@ -946,7 +946,7 @@ void ChaosMod::InitEffects()
 				  new EffectDutchStealsPlayersVeh(), new EffectSpawnPredator(), new EffectInvertVelocity(),
 				  new EffectIncreaseVelocity(), new EffectBunnyhop(), new EffectEyeDisorder(), new EffectPedsBhop(),
 				  new EffectPedsSpin(), new EffectBirdSkin(), new EffectBodySwap(), new EffectCloneEnemy(),
-				  new EffectPedsFollowPlayer(), new EffectPedsFleeing(), new EffectPlayerSpin(), new EffectRainbow(),
+				  new EffectPedsFollowPlayer(), new EffectDeerFollowPlayer(), new EffectPedsFleeing(), new EffectPlayerSpin(), new EffectRainbow(),
 				  new EffectPlayerLosesWeight(), new EffectPlayerGainsWeight(), new EffectSetRandomHat(),
 				  new EffectHealNearbyPeds(), new EffectReviveDeadPeds(), new EffectGravityGun(),
 				  new EffectSpawnAngryTommy(), new EffectDisableDeadEye(), new EffectPartyTime(),

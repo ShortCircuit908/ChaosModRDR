@@ -1424,6 +1424,82 @@ void EffectPedsFollowPlayer::OnDeactivate()
 	peds.clear();
 }
 
+void EffectPedsFollowPlayer::OnActivate()
+{
+	peds.clear();
+}
+
+void EffectPedsFollowPlayer::OnTick()
+{
+	if (!TimerTick(1000))
+	{
+		return;
+	}
+
+	static int maxDeer = 15;
+	static Hash deerHash = GET_HASH("A_C_Deer_01");
+
+	Ped playerPed = PLAYER::PLAYER_PED_ID();
+
+	auto nearbyPeds = GetNearbyPeds(50);
+	int deerCount = 0;
+
+	for (auto ped : nearbyPeds)
+	{
+		if (deerCount >= maxDeer) {
+			break;
+		}
+
+		if (peds.contains(ped))
+		{
+			deerCount++;
+			continue;
+		}
+
+		if (ENTITY::IS_ENTITY_A_MISSION_ENTITY(ped) || ENTITY::GET_ENTITY_MODEL(ped) != deerHash)
+		{
+			continue;
+		}
+
+		AI::TASK_FOLLOW_TO_OFFSET_OF_ENTITY(ped, playerPed, 0.0f, 0.0f, 0.0f, 4.5f, -1.0f, -1.0f, 0, 0, 0, 0, 0);
+		peds.insert(ped);
+		deerCount++;
+	}
+
+	if (deerCount < 15) {
+		Ped ped = SpawnPedAroundPlayer(deerHash, false, false);
+		Vector3 vec = GetRandomCoordAroundPlayer(float(rand() % 20));
+
+		ENTITY::SET_ENTITY_COORDS(ped, vec.x, vec.y, vec.z + 35.0f, false, false, false, false);
+
+		ENTITY::SET_ENTITY_INVINCIBLE(ped, true);
+
+		PED::SET_PED_TO_RAGDOLL(ped, 10000, 10000, 0, true, true, false);
+
+		PED::_SET_PED_RAGDOLL_BLOCKING_FLAGS(ped, 512);
+
+		ENTITY::SET_ENTITY_VELOCITY(ped, 0.0f, 0.0f, -50.0f);
+
+		peds.insert(ped);
+
+		invoke<Void>(0x22B0D0E37CCB840D, ped, playerPed, 5000.0f, -1.0f, 0, 3.0f, 0);
+	}
+}
+
+void EffectDeerFollowPlayer::OnDeactivate()
+{
+	for (auto ped : peds)
+	{
+		if (ENTITY::DOES_ENTITY_EXIST(ped))
+		{
+			AI::CLEAR_PED_TASKS_IMMEDIATELY(ped, true, true);
+			AI::TASK_WANDER_STANDARD(ped, 10.0f, 10);
+		}
+	}
+
+	peds.clear();
+}
+
 void EffectPedsFleeing::OnActivate()
 {
 	auto nearbyPeds = GetNearbyPeds(50);

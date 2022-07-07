@@ -564,6 +564,27 @@ private:
 	std::set <Ped> peds;
 };
 
+class EffectDeerFollowPlayer : public Effect
+{
+public:
+	EffectDeerFollowPlayer()
+	{
+		ID = "deer_follow_player";
+		name = "Oh Deer";
+		bTimed = true;
+		EffectDuration = 30;
+	}
+
+	virtual void OnActivate() override;
+
+	virtual void OnTick() override;
+
+	virtual void OnDeactivate() override;
+
+private:
+	std::set <Ped> peds;
+};
+
 class EffectPedsFleeing : public Effect
 {
 public:
