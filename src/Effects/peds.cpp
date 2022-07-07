@@ -1424,12 +1424,12 @@ void EffectPedsFollowPlayer::OnDeactivate()
 	peds.clear();
 }
 
-void EffectPedsFollowPlayer::OnActivate()
+void EffectDeerFollowPlayer::OnActivate()
 {
-	peds.clear();
+	OnDeactivate();
 }
 
-void EffectPedsFollowPlayer::OnTick()
+void EffectDeerFollowPlayer::OnTick()
 {
 	if (!TimerTick(1000))
 	{
