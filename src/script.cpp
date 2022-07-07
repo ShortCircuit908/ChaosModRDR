@@ -902,7 +902,7 @@ void ChaosMod::DrawEffectInUI(Effect* effect, int32_t index)
 void ChaosMod::InitEffects()
 {
 	AllEffects = {new EffectSpawnSoldier(), new EffectSpawnLenny(), new EffectSpawnDrunkardJon(),
-				  new EffectSpawnChicken(), new EffectSpawnWolfPack(), new EffectLaunchPlayerUp(),
+				  new EffectSpawnChicken(), new EffectSpawnWolfPack(), new EffectLaunchPlayerUp(), new EffectPoopyHead(),
 				  new EffectSpawnHotchkissCannon(), new EffectKidnapping(), new EffectSpawnHorse(),
 				  new EffectTeleportEverything(), new EffectSpawnWagon(), new EffectSpawnMule(),
 				  new EffectSpawnDonkey(), new EffectSpawnSerialKiller(), new EffectToTheStars(), new EffectSnowstorm(),

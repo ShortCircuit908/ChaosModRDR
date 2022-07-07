@@ -6,6 +6,25 @@ void TeleportPlayerTo(float X, float Y, float Z);
 
 void DisableAllMovements();
 
+class EffectPoopyHead : public Effect
+{
+public:
+	EffectPoopyHead()
+	{
+		ID = "poopy_head";
+		name = "Poopy Head";
+		bTimed = true;
+		EffectDuration = 10;
+	}
+
+	virtual void OnActivate() override;
+	virtual void OnTick() override;
+	virtual void OnDeactivate() override;
+
+private:
+	std::vector<Object> objs;
+};
+
 class EffectLaunchPlayerUp : public Effect
 {
 public:

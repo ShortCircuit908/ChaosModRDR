@@ -33,6 +33,43 @@ void EffectLaunchPlayerUp::OnActivate()
 	ENTITY::SET_ENTITY_VELOCITY(entityToUse, entityVelocity.x, entityVelocity.y, 35.0f);
 }
 
+void EffectPoopyHead::OnActivate()
+{
+	OnDeactivate();
+}
+
+void EffectPoopyHead::OnTick() {
+	if (TimerTick(250)) {
+		if (objs.size() > 10)
+		{
+			Object obj = objs[0];
+			if (ENTITY::DOES_ENTITY_EXIST(obj)) {
+				ENTITY::DELETE_ENTITY(&obj);
+			}
+			objs.erase(objs.begin());
+		}
+
+		static std::vector<Hash> dookieModels = { "P_WOLFPOOP01X", "P_WOLFPOOP02X" };
+		Vector3 vec = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), true, 0);
+		Vector3 velocity = ENTITY::GET_ENTITY_VELOCITY(PLAYER::PLAYER_PED_ID(), 0);
+		Object dookie = OBJECT::CREATE_OBJECT(dookieModels[rand() * dookieModels.size()], vec.x, vec.y, vec.z, false, false, true, false, false);
+		ENTITY::SET_ENTITY_VELOCITY(dookie, velocity.x, velocity.y, velocity.z - 30);
+		objs.push_back(dookie);
+	}
+}
+
+void EffectPoopyHead::OnDeactivate()
+{
+	for (Object obj : objs)
+	{
+		if (ENTITY::DOES_ENTITY_EXIST(obj)) {
+			ENTITY::DELETE_ENTITY(&obj);
+		}
+	}
+
+	objs.clear();
+}
+
 void EffectToTheStars::OnActivate()
 {
 	Effect::OnActivate();
